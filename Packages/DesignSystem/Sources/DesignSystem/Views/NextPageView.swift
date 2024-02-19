@@ -4,12 +4,12 @@ public struct NextPageView: View {
   @State private var isLoadingNextPage: Bool = false
   @State private var showRetry: Bool = false
 
-  let loadNextPage: (() async throws -> Void)
-  
+  let loadNextPage: () async throws -> Void
+
   public init(loadNextPage: @escaping (() async throws -> Void)) {
     self.loadNextPage = loadNextPage
   }
-  
+
   public var body: some View {
     HStack {
       if showRetry {
@@ -35,7 +35,7 @@ public struct NextPageView: View {
     }
     .listRowSeparator(.hidden, edges: .all)
   }
-  
+
   private func executeTask() async {
     showRetry = false
     defer {
@@ -49,4 +49,15 @@ public struct NextPageView: View {
       showRetry = true
     }
   }
+}
+
+
+#Preview {
+  List {
+    Text("Item 1")
+    NextPageView {
+      
+    }
+  }
+  .listStyle(.plain)
 }
